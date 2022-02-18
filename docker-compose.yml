@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+# mysql Server
+  mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    volumes:
+      - ./seed-data/database:/var/lib/mysql
+#      - ./db-init-script:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=rhbbank
+      - MYSQL_PASSWORD=rhbbank.dba
+      - MYSQL_USER=rhbbank
+      - MYSQL_DATABASE=movie
+
+
+# Set Docker Network Bridge
+networks:
+  sky_network:
+    driver: bridge
