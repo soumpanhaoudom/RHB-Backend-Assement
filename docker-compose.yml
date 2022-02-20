@@ -17,7 +17,4 @@ services:
       - MYSQL_DATABASE=movie
 
 
-# Set Docker Network Bridge
-networks:
-  sky_network:
-    driver: bridge
+
