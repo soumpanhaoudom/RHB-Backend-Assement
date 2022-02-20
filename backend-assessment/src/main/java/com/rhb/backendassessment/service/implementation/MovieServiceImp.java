@@ -1,6 +1,7 @@
 package com.rhb.backendassessment.service.implementation;
 
 import com.rhb.backendassessment.application.form.MovieCreateRequest;
+import com.rhb.backendassessment.application.form.MovieUpdateRequest;
 import com.rhb.backendassessment.model.MovieModel;
 import com.rhb.backendassessment.model.entity.MovieEntity;
 import com.rhb.backendassessment.repository.MovieRepository;
@@ -22,12 +23,29 @@ public class MovieServiceImp implements MovieService {
     public MovieModel create(MovieCreateRequest request) {
         MovieEntity entity = this.movieRepositoryMapper.from(request);
 
-        System.out.println(entity.toString());
         MovieModel movieModel = this.movieRepositoryMapper.from(
-                this.movieRepository.saveAndFlush(entity)
+                this.movieRepository.save(entity)
         );
-        System.out.println(movieModel.toString());
 
         return movieModel;
+    }
+
+    @Override
+    public MovieModel get(Long id) {
+        MovieModel movieModel = this.movieRepositoryMapper.from(
+                this.movieRepository.getById(id)
+        );
+
+        return movieModel;
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.movieRepository.deleteById(id);
+    }
+
+    @Override
+    public MovieModel update(MovieUpdateRequest request, Long id) {
+        return null;
     }
 }

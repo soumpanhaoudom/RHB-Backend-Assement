@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-
 @RestController
 @RequestMapping("/v1/movies")
 public class MovieController {
@@ -29,9 +27,26 @@ public class MovieController {
         return null;
     }
 
+    /**
+     * get movie by ID
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<MovieView>> get(@PathParam("id") Integer id) {
-        return null;
+    public ResponseEntity<ApiResponse<MovieView>> get(@PathVariable("id") Long id) {
+        MovieModel movieModel = this.movieService.get(id);
+        MovieView view = this.movieApplicationMapper.from(movieModel);
+        ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    /**
+     * delete movie by ID
+     * @param id
+     */
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        this.movieService.delete(id);
     }
 
     /**
@@ -44,7 +59,6 @@ public class MovieController {
         MovieModel movieModel = this.movieService.create(request);
         MovieView view = this.movieApplicationMapper.from(movieModel);
         ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
-        System.out.println(view.toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
