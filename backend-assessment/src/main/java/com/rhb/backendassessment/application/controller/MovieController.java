@@ -1,16 +1,50 @@
 package com.rhb.backendassessment.application.controller;
 
+import com.rhb.backendassessment._shared.constant.CodeResponse;
+import com.rhb.backendassessment._shared.response.ApiResponse;
+import com.rhb.backendassessment.application.form.MovieCreateRequest;
+import com.rhb.backendassessment.application.mapper.MovieApplicationMapper;
 import com.rhb.backendassessment.application.view.MovieView;
+import com.rhb.backendassessment.model.MovieModel;
+import com.rhb.backendassessment.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/v1/movies")
 public class MovieController {
+
+    @Autowired
+    private MovieService movieService;
+
+    @Autowired
+    private MovieApplicationMapper movieApplicationMapper;
+
     @GetMapping
-    ResponseEntity<MovieView> list() {
+    public ResponseEntity<MovieView> list() {
         return null;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<MovieView>> get(@PathParam("id") Integer id) {
+        return null;
+    }
+
+    /**
+     * create movie
+     * @param request
+     * @return
+     */
+    @PostMapping
+    public ResponseEntity<ApiResponse<MovieView>> create(@RequestBody MovieCreateRequest request) {
+        MovieModel movieModel = this.movieService.create(request);
+        MovieView view = this.movieApplicationMapper.from(movieModel);
+        ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
+        System.out.println(view.toString());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
