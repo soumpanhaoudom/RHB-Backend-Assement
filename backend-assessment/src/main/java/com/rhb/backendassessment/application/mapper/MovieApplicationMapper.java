@@ -12,6 +12,11 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 @Component
 public interface MovieApplicationMapper {
+    /**
+     * Map MovieModel to MovieView
+     * @param model
+     * @return
+     */
     default MovieView from (MovieModel model) {
         return MovieView.of(
                 model.getId(),
@@ -23,6 +28,11 @@ public interface MovieApplicationMapper {
         );
     };
 
+    /**
+     * Map List<MovieModel> to List<MovieView>
+     * @param models
+     * @return
+     */
     default List<MovieView> from (List<MovieModel> models) {
         List<MovieView> movieViewList = new ArrayList<>();
         for (MovieModel model : models){

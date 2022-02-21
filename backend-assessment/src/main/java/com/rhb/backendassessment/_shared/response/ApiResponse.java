@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * API response for single object
+ * @author panhoudom
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

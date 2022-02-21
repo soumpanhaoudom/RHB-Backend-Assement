@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * API response with Pagination
+ * @author panhoudom
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

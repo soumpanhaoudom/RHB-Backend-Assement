@@ -11,7 +11,7 @@ public class MovieView {
     private Long id;
     private String title;
     private String category;
-    private Double rating;
+    private Double starRating;
     private String createdAt;
     private String updatedAt;
 }

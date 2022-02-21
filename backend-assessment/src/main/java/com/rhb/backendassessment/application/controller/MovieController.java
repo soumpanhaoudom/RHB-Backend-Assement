@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -46,10 +48,14 @@ public class MovieController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<MovieView>> get(@PathVariable("id") Long id) {
-        MovieModel movieModel = this.movieService.get(id);
-        MovieView view = this.movieApplicationMapper.from(movieModel);
-        ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        try{
+            MovieModel movieModel = this.movieService.get(id);
+            MovieView view = this.movieApplicationMapper.from(movieModel);
+            ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     /**
@@ -69,7 +75,7 @@ public class MovieController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<ApiResponse<MovieView>> create(@RequestBody MovieCreateRequest request) {
+    public ResponseEntity<ApiResponse<MovieView>> create(@RequestBody @Valid MovieCreateRequest request) {
         MovieModel movieModel = this.movieService.create(request);
         MovieView view = this.movieApplicationMapper.from(movieModel);
         ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
@@ -82,10 +88,14 @@ public class MovieController {
      * @return
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponse<MovieView>> update(@RequestBody MovieUpdateRequest request, @PathVariable("id") Long id) {
-        MovieModel movieModel = this.movieService.update(request, id);
-        MovieView view = this.movieApplicationMapper.from(movieModel);
-        ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<ApiResponse<MovieView>> update(@RequestBody @Valid MovieUpdateRequest request, @PathVariable("id") Long id) {
+        try{
+            MovieModel movieModel = this.movieService.update(request, id);
+            MovieView view = this.movieApplicationMapper.from(movieModel);
+            ApiResponse<MovieView> response = new ApiResponse<>(CodeResponse.SUCCESS, "", view);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

@@ -10,6 +10,7 @@ import com.rhb.backendassessment.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -41,7 +42,7 @@ public class MovieServiceImp implements MovieService {
     }
 
     @Override
-    public MovieModel get(Long id) {
+    public MovieModel get(Long id) throws EntityNotFoundException {
         MovieModel movieModel = this.movieRepositoryMapper.from(
                 this.movieRepository.getById(id)
         );

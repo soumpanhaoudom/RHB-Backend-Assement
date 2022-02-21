@@ -4,6 +4,7 @@ import com.rhb.backendassessment.application.form.MovieCreateRequest;
 import com.rhb.backendassessment.application.form.MovieUpdateRequest;
 import com.rhb.backendassessment.model.MovieModel;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -29,9 +30,10 @@ public interface MovieService {
     /**
      * get movie by ID
      * @param id
+     * @throws EntityNotFoundException
      * @return
      */
-    MovieModel get(Long id);
+    MovieModel get(Long id) throws EntityNotFoundException;
 
     /**
      * delete movie by ID
@@ -43,7 +45,8 @@ public interface MovieService {
      * update movie by ID
      * @param request
      * @param id
+     * @throws EntityNotFoundException
      * @return
      */
-    MovieModel update(MovieUpdateRequest request, Long id);
+    MovieModel update(MovieUpdateRequest request, Long id) throws EntityNotFoundException;
 }
