@@ -4,12 +4,19 @@ import com.rhb.backendassessment.application.form.MovieCreateRequest;
 import com.rhb.backendassessment.application.form.MovieUpdateRequest;
 import com.rhb.backendassessment.model.MovieModel;
 
+import java.util.List;
+
 /**
  * MovieService is used for manipulate movie
  * @author panhaoudom
  */
 public interface MovieService {
 
+    /**
+     * get list of movies
+     * @return
+     */
+    List<MovieModel> list();
     /**
      * create movie
      * @param request

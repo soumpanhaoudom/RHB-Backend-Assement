@@ -1,6 +1,7 @@
 package com.rhb.backendassessment.application.controller;
 
 import com.rhb.backendassessment._shared.constant.CodeResponse;
+import com.rhb.backendassessment._shared.response.ApiPageResponse;
 import com.rhb.backendassessment._shared.response.ApiResponse;
 import com.rhb.backendassessment.application.form.MovieCreateRequest;
 import com.rhb.backendassessment.application.mapper.MovieApplicationMapper;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/movies")
@@ -23,8 +26,11 @@ public class MovieController {
     private MovieApplicationMapper movieApplicationMapper;
 
     @GetMapping
-    public ResponseEntity<MovieView> list() {
-        return null;
+    public ResponseEntity<ApiPageResponse<MovieView>> list() {
+        List<MovieModel> movieModels = this.movieService.list();
+        List<MovieView> viewList = this.movieApplicationMapper.from(movieModels);
+        ApiPageResponse<MovieView> response = new ApiPageResponse<MovieView>(CodeResponse.SUCCESS, "", viewList,0,0,0);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     /**

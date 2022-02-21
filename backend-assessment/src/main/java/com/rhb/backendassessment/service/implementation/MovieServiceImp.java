@@ -10,6 +10,8 @@ import com.rhb.backendassessment.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieServiceImp implements MovieService {
 
@@ -18,6 +20,14 @@ public class MovieServiceImp implements MovieService {
 
     @Autowired
     private MovieRepositoryMapper movieRepositoryMapper;
+
+    @Override
+    public List<MovieModel> list() {
+        List<MovieModel> movieModels = this.movieRepositoryMapper.from(
+                this.movieRepository.findAll()
+        );
+        return movieModels;
+    }
 
     @Override
     public MovieModel create(MovieCreateRequest request) {
