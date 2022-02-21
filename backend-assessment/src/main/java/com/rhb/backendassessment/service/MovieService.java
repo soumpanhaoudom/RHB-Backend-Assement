@@ -14,9 +14,11 @@ public interface MovieService {
 
     /**
      * get list of movies
+     * @param limit
+     * @param offset
      * @return
      */
-    List<MovieModel> list();
+    List<MovieModel> list(Integer limit, Integer offset);
     /**
      * create movie
      * @param request

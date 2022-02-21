@@ -1,7 +1,9 @@
 package com.rhb.backendassessment.model.entity;
 
 import com.rhb.backendassessment._shared.constant.movie.MovieCategory;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 @Table(name = "movie")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@AllArgsConstructor(staticName = "of")
+@NoArgsConstructor
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "movie_seq")

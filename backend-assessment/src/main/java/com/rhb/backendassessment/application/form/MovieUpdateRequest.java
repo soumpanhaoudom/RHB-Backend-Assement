@@ -1,17 +1,22 @@
 package com.rhb.backendassessment.application.form;
 
 import com.rhb.backendassessment._shared.constant.movie.MovieCategory;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode
 public class MovieUpdateRequest {
-    private String title;
-    private MovieCategory category;
-    private double starRating;
+
+    @NonNull
+    private Optional<String> title;
+
+    @NonNull
+    private Optional<MovieCategory> category;
+
+    @NonNull
+    private Optional<Double> starRating;
 }

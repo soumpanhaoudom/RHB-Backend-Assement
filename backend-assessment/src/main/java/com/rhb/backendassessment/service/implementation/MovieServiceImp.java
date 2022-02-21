@@ -22,9 +22,9 @@ public class MovieServiceImp implements MovieService {
     private MovieRepositoryMapper movieRepositoryMapper;
 
     @Override
-    public List<MovieModel> list() {
+    public List<MovieModel> list(Integer limit, Integer offset) {
         List<MovieModel> movieModels = this.movieRepositoryMapper.from(
-                this.movieRepository.findAll()
+                this.movieRepository.findAllByPaging(limit, offset)
         );
         return movieModels;
     }
@@ -56,6 +56,14 @@ public class MovieServiceImp implements MovieService {
 
     @Override
     public MovieModel update(MovieUpdateRequest request, Long id) {
-        return null;
+        MovieEntity entity = this.movieRepository.getById(id);
+
+        MovieEntity modifiedEntity = this.movieRepositoryMapper.from(request, entity);
+
+        MovieModel movieModel = this.movieRepositoryMapper.from(
+                this.movieRepository.save(modifiedEntity)
+        );
+
+        return movieModel;
     }
 }
