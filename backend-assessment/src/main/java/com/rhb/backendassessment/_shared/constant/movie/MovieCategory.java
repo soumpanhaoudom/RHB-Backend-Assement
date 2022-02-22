@@ -1,5 +1,9 @@
 package com.rhb.backendassessment._shared.constant.movie;
 
+/**
+ * Movie Category
+ * @author panhoudom
+ */
 public enum MovieCategory {
     ACTION,
     COMEDY,
